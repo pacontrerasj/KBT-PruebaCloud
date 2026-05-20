@@ -18,9 +18,9 @@ resource "aws_backup_plan" "daily" {
 }
 
 resource "aws_backup_vault" "main" {
-  name        = "${project_name}-backup-vault"
+  name        = "${var.project_name}-backup-vault"
   kms_key_arn = aws_kms_key.backup.arn
-  tags        = { Name = "${project_name}-backup-vault" }
+  tags        = { Name = "${var.project_name}-backup-vault" }
 }
 
 resource "aws_kms_key" "backup" {
@@ -55,6 +55,7 @@ resource "aws_backup_selection" "rds" {
   name         = "${var.project_name}-rds-selection"
   plan_id      = aws_backup_plan.daily.id
   vault_arn    = aws_backup_vault.main.arn
+  resources    = [var.rds_db_arn]
 
   resource_type = ["RDS"]
 }
