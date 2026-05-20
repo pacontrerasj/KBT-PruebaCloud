@@ -1,15 +1,15 @@
 module "networking" {
-  source   = "./modules/networking"
+  source   = "./modulos/networking"
   vpc_cidr = var.vpc_cidr
 }
 
 module "security" {
-  source = "./modules/security"
+  source = "./modulos/security"
   vpc_id = module.networking.vpc_id
 }
 
 module "database" {
-  source             = "./modules/database"
+  source             = "./modulos/database"
   vpc_id             = module.networking.vpc_id
   db_subnets         = module.networking.private_subnets
   rds_sg_id          = module.security.rds_sg_id
@@ -17,7 +17,7 @@ module "database" {
 }
 
 module "compute" {
-  source             = "./modules/compute"
+  source             = "./modulos/compute"
   vpc_id             = module.networking.vpc_id
   public_subnets     = module.networking.public_subnets
   private_subnets    = module.networking.private_subnets
@@ -28,7 +28,7 @@ module "compute" {
 }
 
 module "monitoring" {
-  source             = "./modules/monitoring"
+  source             = "./modulos/monitoring"
   asg_name           = module.compute.asg_name
   alb_arn_suffix     = module.compute.alb_arn_suffix
   db_identifier      = module.database.db_identifier
@@ -36,7 +36,7 @@ module "monitoring" {
 }
 
 module "backup" {
-  source       = "./modules/backup"
+  source       = "./modulos/backup"
   lab_role_arn = var.lab_role_arn
 }
 
