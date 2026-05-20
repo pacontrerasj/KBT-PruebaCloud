@@ -1,8 +1,3 @@
-variable "asg_name" {}
-variable "alb_arn_suffix" {}
-variable "db_identifier" {}
-variable "email_sns" {}
-
 resource "aws_sns_topic" "alerts" {
   name = "technova-alerts"
 }
@@ -97,5 +92,3 @@ resource "aws_cloudwatch_metric_alarm" "rds_connections" {
 
   alarm_actions = [aws_sns_topic.alerts.arn]
 }
-
-output "sns_topic_arn" { value = aws_sns_topic.alerts.arn }
