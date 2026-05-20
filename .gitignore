@@ -2,22 +2,48 @@
 .terraform/
 *.tfstate
 *.tfstate.*
+*.tfstate.backup
 crash.log
-*.log
+crash.*.log
+
+# Terraform lock files - pueden ser versionados pero con precaución
+# .terraform.lock.hcl
+
+# Variables sensibles
 *.tfvars
 *.tfvars.json
+environments/*/terraform.tfvars
 
-#tfsec
-.terraform.lock.hcl
+# Credentials
+*.pem
+*.key
+*.csv
 
-# Misc
+# OS
 .DS_Store
 *.swp
 *.swo
 *~
+Thumbs.db
 
-# Secrets (NUNCA subir)
-terraform.tfvars
-terraform.tfvars.example
-*.pem
-*.key
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Secretos de GitHub (no es necesario agregar, GitHub ya los maneja)
+# Los secrets nunca se suben al repositorio
+
+# Build outputs
+*.zip
+*.tar.gz
+dist/
+build/
