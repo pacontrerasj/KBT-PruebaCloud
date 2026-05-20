@@ -10,12 +10,12 @@ module "security" {
 }
 
 module "database" {
-  source             = "../../modules/database"
-  project_name       = var.project_name
-  vpc_id             = module.networking.vpc_id
-  db_subnets         = module.networking.private_subnets_data
-  rds_sg_id          = module.security.rds_sg_id
-  db_password        = var.db_password
+  source       = "../../modules/database"
+  project_name = var.project_name
+  vpc_id       = module.networking.vpc_id
+  db_subnets   = module.networking.private_subnets_data
+  rds_sg_id    = module.security.rds_sg_id
+  db_password  = var.db_password
 }
 
 module "loadbalancer" {
@@ -38,18 +38,18 @@ module "compute" {
 }
 
 module "monitoring" {
-  source           = "../../modules/monitoring"
-  project_name     = var.project_name
-  asg_name         = module.compute.asg_name
-  alb_arn_suffix   = module.loadbalancer.alb_arn_suffix
-  db_identifier    = module.database.db_identifier
-  email_sns        = var.email_sns
-  instance_ids     = module.compute.instance_ids
+  source         = "../../modules/monitoring"
+  project_name   = var.project_name
+  asg_name       = module.compute.asg_name
+  alb_arn_suffix = module.loadbalancer.alb_arn_suffix
+  db_identifier  = module.database.db_identifier
+  email_sns      = var.email_sns
+  instance_ids   = module.compute.instance_ids
 }
 
 module "backup" {
-  source       = "../../modules/backup"
-  project_name = var.project_name
+  source         = "../../modules/backup"
+  project_name   = var.project_name
   ec2_instance_ids = module.compute.instance_ids
-  rds_db_arn   = module.database.db_arn
+  rds_db_arn     = module.database.db_arn
 }
