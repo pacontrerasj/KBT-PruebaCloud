@@ -7,29 +7,26 @@ on:
   pull_request:
 
 jobs:
-  plan:
-    name: "Terraform Plan"
+  deploy:
+    name: "Terraform Deploy"
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    defaults:
+      run:
+        working-directory: ./terraform
 
-
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.0
+        uses: hashicorp/setup-terraform@v3
 
-      - name: Configurar credenciales de AWS
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} # Obligatorio en AWS Academy
-          aws-region: us-east-1 # Cambia si usas otra región
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
 
       - name: Terraform Init
         run: terraform init

@@ -1,0 +1,23 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.log
+*.tfvars
+*.tfvars.json
+
+#tfsec
+.terraform.lock.hcl
+
+# Misc
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Secrets (NUNCA subir)
+terraform.tfvars
+terraform.tfvars.example
+*.pem
+*.key
