@@ -47,9 +47,10 @@ module "monitoring" {
   instance_ids   = module.compute.instance_ids
 }
 
-module "backup" {
-  source         = "../../modules/backup"
-  project_name   = var.project_name
-  ec2_instance_ids = module.compute.instance_ids
-  rds_db_arn     = module.database.db_arn
-}
+# Backup module commented - AWS Academy doesn't support IAM roles
+# module "backup" {
+#   source         = "../../modules/backup"
+#   project_name   = var.project_name
+#   ec2_instance_ids = module.compute.instance_ids
+#   rds_db_arn     = module.database.db_arn
+# }

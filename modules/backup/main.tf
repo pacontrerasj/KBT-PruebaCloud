@@ -35,27 +35,3 @@ resource "aws_backup_vault" "main" {
   kms_key_arn = aws_kms_key.backup.arn
   tags        = { Name = "${var.project_name}-backup-vault" }
 }
-
-resource "aws_backup_selection" "ec2" {
-  name         = "${var.project_name}-ec2-selection"
-  plan_id      = aws_backup_plan.daily.id
-  vault_arn    = aws_backup_vault.main.arn
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "Backup"
-    value = "true"
-  }
-
-  resource_type = ["EC2"]
-}
-
-resource "aws_backup_selection" "rds" {
-  count        = var.rds_db_arn != "" ? 1 : 0
-  name         = "${var.project_name}-rds-selection"
-  plan_id      = aws_backup_plan.daily.id
-  vault_arn    = aws_backup_vault.main.arn
-  resources    = [var.rds_db_arn]
-
-  resource_type = ["RDS"]
-}
