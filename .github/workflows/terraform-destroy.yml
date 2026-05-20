@@ -8,6 +8,9 @@ on:
         required: true
         type: string
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   destroy:
     name: "Terraform Destroy"
@@ -21,8 +24,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        with:
-          cli_config_directory: ./environments/dev
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
