@@ -23,7 +23,8 @@ output "sns_topic_arn" {
   value       = module.monitoring.sns_topic_arn
 }
 
-output "backup_plan_arn" {
-  description = "ARN del plan de backup"
-  value       = module.backup.backup_plan_arn
-}
+# Backup outputs commented - module disabled for AWS Academy
+# output "backup_plan_arn" {
+#   description = "ARN del plan de backup"
+#   value       = module.backup.backup_plan_arn
+# }

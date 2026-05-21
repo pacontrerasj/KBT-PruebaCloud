@@ -1,7 +1,7 @@
 module "networking" {
-  source      = "../../modules/networking"
+  source       = "../../modules/networking"
   project_name = var.project_name
-  vpc_cidr    = var.vpc_cidr
+  vpc_cidr     = var.vpc_cidr
 }
 
 module "security" {
@@ -27,14 +27,14 @@ module "loadbalancer" {
 }
 
 module "compute" {
-  source          = "../../modules/compute"
-  project_name    = var.project_name
-  vpc_id          = module.networking.vpc_id
-  private_subnets = module.networking.private_subnets_app
+  source           = "../../modules/compute"
+  project_name     = var.project_name
+  vpc_id           = module.networking.vpc_id
+  private_subnets  = module.networking.private_subnets_app
   target_group_arn = module.loadbalancer.target_group_arn
-  ec2_sg_id       = module.security.ec2_sg_id
-  ami_id          = var.ami_id
-  app_version     = var.app_version
+  ec2_sg_id        = module.security.ec2_sg_id
+  ami_id           = var.ami_id
+  app_version      = var.app_version
 }
 
 module "monitoring" {
@@ -47,10 +47,10 @@ module "monitoring" {
   instance_ids   = module.compute.instance_ids
 }
 
-# Backup module commented - AWS Academy doesn't support IAM roles
+# Backup module disabled - AWS Academy doesn't support IAM roles
 # module "backup" {
-#   source         = "../../modules/backup"
-#   project_name   = var.project_name
+#   source           = "../../modules/backup"
+#   project_name     = var.project_name
 #   ec2_instance_ids = module.compute.instance_ids
-#   rds_db_arn     = module.database.db_arn
+#   rds_db_arn       = module.database.db_arn
 # }
