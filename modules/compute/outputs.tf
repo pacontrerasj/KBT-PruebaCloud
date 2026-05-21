@@ -8,7 +8,14 @@ output "launch_template_id" {
   value       = aws_launch_template.web.id
 }
 
+data "aws_instances" "asg_instances" {
+  filter {
+    name   = "tag:aws:autoscaling:groupName"
+    values = [aws_autoscaling_group.web.name]
+  }
+}
+
 output "instance_ids" {
   description = "IDs de las instancias del ASG"
-  value       = []
+  value       = data.aws_instances.asg_instances.ids
 }

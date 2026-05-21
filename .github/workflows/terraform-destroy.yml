@@ -37,6 +37,10 @@ jobs:
         working-directory: ./environments/dev
         run: terraform init
 
+      - name: Terraform Validate
+        working-directory: ./environments/dev
+        run: terraform validate
+
       - name: Terraform Destroy
         working-directory: ./environments/dev
         run: terraform destroy -auto-approve

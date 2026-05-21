@@ -3,11 +3,6 @@ variable "project_name" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "ID de la VPC"
-  type        = string
-}
-
 variable "private_subnets" {
   description = "IDs de las subredes privadas"
   type        = list(string)

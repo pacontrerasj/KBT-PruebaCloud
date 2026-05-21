@@ -27,11 +27,6 @@ variable "db_password" {
   sensitive   = true
 }
 
-variable "lab_role_arn" {
-  description = "ARN del LabRole de AWS Academy"
-  type        = string
-}
-
 variable "email_sns" {
   description = "Correo para notificaciones SNS"
   type        = string

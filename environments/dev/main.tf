@@ -5,8 +5,9 @@ module "networking" {
 }
 
 module "security" {
-  source = "../../modules/security"
-  vpc_id = module.networking.vpc_id
+  source   = "../../modules/security"
+  vpc_id   = module.networking.vpc_id
+  vpc_cidr = var.vpc_cidr
 }
 
 module "database" {
@@ -29,7 +30,6 @@ module "loadbalancer" {
 module "compute" {
   source           = "../../modules/compute"
   project_name     = var.project_name
-  vpc_id           = module.networking.vpc_id
   private_subnets  = module.networking.private_subnets_app
   target_group_arn = module.loadbalancer.target_group_arn
   ec2_sg_id        = module.security.ec2_sg_id

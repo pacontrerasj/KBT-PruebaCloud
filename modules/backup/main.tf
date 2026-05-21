@@ -33,15 +33,6 @@ resource "aws_backup_plan" "daily" {
   }
 }
 
-# También necesitas el vault:
-resource "aws_backup_vault" "main" {
-  name = "${var.project_name}-backup-vault"
-
-  tags = {
-    Name = "${var.project_name}-backup-vault"
-  }
-}
-
 resource "aws_backup_vault" "main" {
   name        = "${var.project_name}-backup-vault"
   kms_key_arn = aws_kms_key.backup.arn
