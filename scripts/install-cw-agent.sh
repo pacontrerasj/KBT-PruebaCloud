@@ -47,7 +47,7 @@ cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << 'EOF'
     "run_as_user": "root"
   },
   "metrics": {
-    "namespace": "TechNova/Compute",
+    "namespace": "Technova/Compute",
     "metrics_collected": {
       "cpu": {
         "measurement": [

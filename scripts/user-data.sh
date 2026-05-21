@@ -38,7 +38,7 @@ cat > /home/ec2-user/app/html/index.html << 'HTML'
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechNova Solutions</title>
+    <title>Technova Solutions</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; margin: 0; padding: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
         .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 500px; }
@@ -51,7 +51,7 @@ cat > /home/ec2-user/app/html/index.html << 'HTML'
 </head>
 <body>
     <div class="container">
-        <h1>TechNova Solutions</h1>
+        <h1>Technova Solutions</h1>
         <h2>Alta Disponibilidad</h2>
         <div class="info">
             <p>Instancia: <span class="highlight">${INSTANCE_ID}</span></p>

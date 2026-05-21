@@ -1,8 +1,8 @@
-# TechNova Solutions - Infrastructure as Code
+# Technova Solutions - Infrastructure as Code
 
 ## Descripción
 
-Proyecto de **Infraestructura como Código (IaC)** para **TechNova Solutions** usando **Terraform** y **GitHub Actions**.
+Proyecto de **Infraestructura como Código (IaC)** para **Technova Solutions** usando **Terraform** y **GitHub Actions**.
 
 ## Arquitectura
 
