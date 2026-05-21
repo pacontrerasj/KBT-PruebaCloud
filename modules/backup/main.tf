@@ -1,7 +1,7 @@
 resource "aws_kms_key" "backup" {
   description             = "KMS key for backup vault"
   deletion_window_in_days = 7
-  enable_key_rotation    = true
+  enable_key_rotation     = true
 
   tags = { Name = "${var.project_name}-backup-kms" }
 }
@@ -15,7 +15,7 @@ resource "aws_backup_plan" "daily" {
   name = "${var.project_name}-backup-plan"
 
   rule {
-    rule_name         = "daily-backup"  # Nota: algunos usan "rule_name"
+    rule_name         = "daily-backup" # Nota: algunos usan "rule_name"
     schedule          = "cron(0 5 * * ? *)"
     target_vault_name = aws_backup_vault.main.name
     start_window      = 60
@@ -36,7 +36,7 @@ resource "aws_backup_plan" "daily" {
 # También necesitas el vault:
 resource "aws_backup_vault" "main" {
   name = "${var.project_name}-backup-vault"
-  
+
   tags = {
     Name = "${var.project_name}-backup-vault"
   }

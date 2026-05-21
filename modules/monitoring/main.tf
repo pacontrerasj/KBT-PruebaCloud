@@ -92,7 +92,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_cpu_high" {
 resource "aws_cloudwatch_metric_alarm" "rds_connections" {
   alarm_name          = "${var.project_name}-rds-connections"
   comparison_operator = "GreaterThanThreshold"
-  evaluation_periods = 2
+  evaluation_periods  = 2
   metric_name         = "DatabaseConnections"
   namespace           = "AWS/RDS"
   period              = 300
@@ -112,7 +112,7 @@ resource "aws_cloudwatch_metric_alarm" "rds_connections" {
 resource "aws_cloudwatch_metric_alarm" "asg_instances" {
   alarm_name          = "${var.project_name}-asg-instances"
   comparison_operator = "LessThanThreshold"
-  evaluation_periods = 2
+  evaluation_periods  = 2
   metric_name         = "GroupInServiceInstances"
   namespace           = "AWS/AutoScaling"
   period              = 300
