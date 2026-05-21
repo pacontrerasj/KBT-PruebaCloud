@@ -15,19 +15,31 @@ resource "aws_backup_plan" "daily" {
   name = "${var.project_name}-backup-plan"
 
   rule {
-    name             = "daily-backup"
-    schedule         = "cron(0 5 ? * * *)"
+    rule_name         = "daily-backup"  # Nota: algunos usan "rule_name"
+    schedule          = "cron(0 5 * * ? *)"
     target_vault_name = aws_backup_vault.main.name
-    start_window     = 60
+    start_window      = 60
     completion_window = 180
 
     lifecycle {
-      cold_storage_after = 0
-      delete_after       = 7
+      delete_after = 7
+      # Opcionalmente:
+      # cold_storage_after = 30
     }
   }
 
-  tags = { Name = "${var.project_name}-backup-plan" }
+  tags = {
+    Name = "${var.project_name}-backup-plan"
+  }
+}
+
+# También necesitas el vault:
+resource "aws_backup_vault" "main" {
+  name = "${var.project_name}-backup-vault"
+  
+  tags = {
+    Name = "${var.project_name}-backup-vault"
+  }
 }
 
 resource "aws_backup_vault" "main" {

@@ -14,7 +14,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_high" {
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
   metric_name         = "CPUUtilization"
-  namespace           = "AWS/AutoScaling"
+  namespace           = "AWS/EC2"
   period              = 300
   statistic           = "Average"
   threshold           = 75
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_cpu_low" {
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 2
   metric_name         = "CPUUtilization"
-  namespace           = "AWS/AutoScaling"
+  namespace           = "AWS/EC2"
   period              = 300
   statistic           = "Average"
   threshold           = 20

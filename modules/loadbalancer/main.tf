@@ -21,23 +21,30 @@ resource "aws_lb_target_group" "web" {
     healthy_threshold   = 2
     interval            = 30
     matcher             = "200"
-    path               = "/"
-    port               = "traffic-port"
-    protocol           = "HTTP"
-    timeout            = 5
+    path                = "/"
+    port                = "traffic-port"
+    protocol            = "HTTP"
+    timeout             = 5
     unhealthy_threshold = 2
   }
 
   tags = { Name = "${var.project_name}-tg" }
 }
 
+# HTTP listener redirects to HTTPS.
+# To complete TLS setup, add an aws_lb_listener "https" resource (port 443)
+# with your ACM certificate_arn and a forward action to the target group.
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.web.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.web.arn
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }

@@ -65,4 +65,20 @@ HTML
 cd /home/ec2-user/app
 docker-compose up -d
 
-/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+mkdir -p /opt/aws/amazon-cloudwatch-agent/etc
+
+cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << 'CWCONFIG'
+{
+  "agent": { "run_as_user": "root" },
+  "metrics": {
+    "namespace": "Technova/Compute",
+    "metrics_collected": {
+      "cpu": { "measurement": ["cpu_usage_idle","cpu_usage_user","cpu_usage_system"], "metrics_collection_interval": 60 },
+      "disk": { "measurement": ["used_percent"], "metrics_collection_interval": 60 },
+      "mem": { "measurement": ["mem_used_percent"], "metrics_collection_interval": 60 }
+    }
+  }
+}
+CWCONFIG
+
+/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json

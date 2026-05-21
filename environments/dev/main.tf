@@ -5,8 +5,9 @@ module "networking" {
 }
 
 module "security" {
-  source = "../../modules/security"
-  vpc_id = module.networking.vpc_id
+  source    = "../../modules/security"
+  vpc_id    = module.networking.vpc_id
+  vpc_cidr  = var.vpc_cidr
 }
 
 module "database" {

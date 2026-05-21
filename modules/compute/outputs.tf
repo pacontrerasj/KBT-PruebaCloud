@@ -10,5 +10,5 @@ output "launch_template_id" {
 
 output "instance_ids" {
   description = "IDs de las instancias del ASG"
-  value       = aws_autoscaling_group.web.instance_ids
+  value       = []
 }
