@@ -1,38 +1,15 @@
 #!/bin/bash
-cd /home/ec2-user
+exec > /var/log/user-data.log 2>&1
+set -x
 
 yum update -y
-yum install -y docker
-
-systemctl start docker
-systemctl enable docker
-usermod -aG docker ec2-user
-
-curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
-wget https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
-rpm -U ./amazon-cloudwatch-agent.rpm
+yum install -y nginx
 
 TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
 INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)
 AZ=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/availability-zone)
 
-mkdir -p /home/ec2-user/app/html
-
-cat > /home/ec2-user/app/docker-compose.yml << 'COMPOSE'
-version: '3.8'
-services:
-  web:
-    image: nginx:latest
-    ports:
-      - "80:80"
-    volumes:
-      - /home/ec2-user/app/html:/usr/share/nginx/html:ro
-    restart: always
-COMPOSE
-
-cat > /home/ec2-user/app/html/index.html << 'HTML'
+cat > /usr/share/nginx/html/index.html << HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -62,23 +39,5 @@ cat > /home/ec2-user/app/html/index.html << 'HTML'
 </html>
 HTML
 
-cd /home/ec2-user/app
-docker-compose up -d
-
-mkdir -p /opt/aws/amazon-cloudwatch-agent/etc
-
-cat > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json << 'CWCONFIG'
-{
-  "agent": { "run_as_user": "root" },
-  "metrics": {
-    "namespace": "Technova/Compute",
-    "metrics_collected": {
-      "cpu": { "measurement": ["cpu_usage_idle","cpu_usage_user","cpu_usage_system"], "metrics_collection_interval": 60 },
-      "disk": { "measurement": ["used_percent"], "metrics_collection_interval": 60 },
-      "mem": { "measurement": ["mem_used_percent"], "metrics_collection_interval": 60 }
-    }
-  }
-}
-CWCONFIG
-
-/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+systemctl start nginx
+systemctl enable nginx
