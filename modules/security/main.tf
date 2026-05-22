@@ -1,6 +1,6 @@
 resource "aws_security_group" "alb" {
   name        = "alb-sg"
-  description = "Security Group para ALB público"
+  description = "Security Group para ALB publico"
   vpc_id      = var.vpc_id
 
   ingress {
