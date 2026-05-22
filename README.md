@@ -154,6 +154,30 @@ En tu repositorio de GitHub, ve a **Settings > Secrets and variables > Actions**
 
 Con esto, cada vez que se ejecute un workflow (plan, apply o destroy), Terraform usará automáticamente tu correo para la suscripción SNS sin necesidad de modificar ningún archivo.
 
+## Docker / ECR
+
+La aplicación web se deploya como un contenedor Docker alojado en **Amazon ECR**. El flujo es:
+
+### Dockerfile
+`Dockerfile` en la raíz del proyecto. Usa `nginx:alpine` con un entrypoint que genera el HTML dinámicamente con el ID de instancia y zona.
+
+### Entrypoint
+`scripts/entrypoint.sh` — genera `index.html` con las variables de entorno `INSTANCE_ID`, `AZ` y `APP_VERSION`, luego inicia nginx.
+
+### ECR
+El módulo `modules/ecr` crea un repositorio ECR con política de retención (últimas 5 imágenes). El workflow de `terraform-apply.yml` hace build y push automáticamente después de aplicar la infraestructura.
+
+### Actualizar la imagen
+```bash
+# Local (necesitas AWS CLI y Docker)
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $(terraform output -raw ecr_repository_url)
+docker build -t technova-web .
+docker tag technova-web $(terraform output -raw ecr_repository_url):v1.0.0
+docker push $(terraform output -raw ecr_repository_url):v1.0.0
+```
+
+Luego forza un instance refresh desde AWS Console o terraform para que las instancias tomen la nueva imagen.
+
 ## Uso
 
 ### GitHub Actions

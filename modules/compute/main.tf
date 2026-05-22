@@ -36,7 +36,10 @@ resource "aws_launch_template" "web" {
     }
   }
 
-  user_data = base64encode(file("${path.module}/../../scripts/user-data.sh"))
+  user_data = base64encode(templatefile("${path.module}/../../scripts/user-data.sh", {
+    ecr_repository_url = var.ecr_repository_url
+    app_version        = var.app_version
+  }))
 
   metadata_options {
     http_endpoint               = "enabled"

@@ -26,15 +26,21 @@ module "loadbalancer" {
   alb_sg_id      = module.security.alb_sg_id
 }
 
+module "ecr" {
+  source       = "../../modules/ecr"
+  project_name = var.project_name
+}
+
 module "compute" {
-  source           = "../../modules/compute"
-  project_name     = var.project_name
-  vpc_id           = module.networking.vpc_id
-  private_subnets  = module.networking.private_subnets_app
-  target_group_arn = module.loadbalancer.target_group_arn
-  ec2_sg_id        = module.security.ec2_sg_id
-  ami_id           = var.ami_id
-  app_version      = var.app_version
+  source              = "../../modules/compute"
+  project_name        = var.project_name
+  vpc_id              = module.networking.vpc_id
+  private_subnets     = module.networking.private_subnets_app
+  target_group_arn    = module.loadbalancer.target_group_arn
+  ec2_sg_id           = module.security.ec2_sg_id
+  ami_id              = var.ami_id
+  app_version         = var.app_version
+  ecr_repository_url  = module.ecr.repository_url
 }
 
 module "monitoring" {

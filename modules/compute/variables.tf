@@ -34,3 +34,8 @@ variable "app_version" {
   type        = string
   default     = "v1.0.0"
 }
+
+variable "ecr_repository_url" {
+  description = "URL del repositorio ECR"
+  type        = string
+}
