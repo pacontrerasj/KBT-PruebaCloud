@@ -30,7 +30,7 @@ module "compute" {
   source           = "../../modules/compute"
   project_name     = var.project_name
   vpc_id           = module.networking.vpc_id
-  private_subnets  = module.networking.private_subnets_app
+  private_subnets  = module.networking.public_subnets
   target_group_arn = module.loadbalancer.target_group_arn
   ec2_sg_id        = module.security.ec2_sg_id
   ami_id           = var.ami_id

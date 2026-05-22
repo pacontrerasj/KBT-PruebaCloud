@@ -24,7 +24,7 @@ resource "aws_launch_template" "web" {
 
   network_interfaces {
     security_groups             = [var.ec2_sg_id]
-    associate_public_ip_address = false
+    associate_public_ip_address = true
   }
 
   block_device_mappings {
