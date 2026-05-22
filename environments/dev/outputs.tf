@@ -1,8 +1,3 @@
-output "ecr_repository_url" {
-  description = "URL del repositorio ECR"
-  value       = module.ecr.repository_url
-}
-
 output "alb_dns_name" {
   description = "DNS del Application Load Balancer"
   value       = module.loadbalancer.alb_dns_name

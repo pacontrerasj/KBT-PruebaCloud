@@ -53,18 +53,3 @@ jobs:
       - name: Terraform Apply
         working-directory: ./environments/dev
         run: terraform apply -auto-approve tfplan
-
-      - name: Get ECR Repository URL
-        id: ecr
-        working-directory: ./environments/dev
-        run: echo "url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
-
-      - name: Build and Push Docker Image
-        env:
-          ECR_URL: ${{ steps.ecr.outputs.url }}
-          APP_VERSION: v1.0.0
-        run: |
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL
-          docker build -t technova-web .
-          docker tag technova-web $ECR_URL:$APP_VERSION
-          docker push $ECR_URL:$APP_VERSION

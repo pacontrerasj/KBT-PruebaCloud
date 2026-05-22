@@ -26,11 +26,6 @@ module "loadbalancer" {
   alb_sg_id      = module.security.alb_sg_id
 }
 
-module "ecr" {
-  source       = "../../modules/ecr"
-  project_name = var.project_name
-}
-
 module "compute" {
   source           = "../../modules/compute"
   project_name     = var.project_name
