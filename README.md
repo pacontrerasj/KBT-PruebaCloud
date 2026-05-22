@@ -235,3 +235,4 @@ O usar el workflow `terraform-destroy.yml` escribiendo "yes" en el parámetro `c
 - Estudiante: Pablo Contreras
 - Curso: Cloud Engineering - Infraestrutura como Código
 - Fecha: 2026
+
