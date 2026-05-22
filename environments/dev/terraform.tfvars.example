@@ -3,7 +3,7 @@ project_name = "technova"
 vpc_cidr     = "10.0.0.0/16"
 
 # REEMPLAZAR: ID de tu AMI personalizada
-ami_id = "ami-0xxxxxxxxxxxxxxxxx"
+#ami_id = "ami-0xxxxxxxxxxxxxxxxx"
 
 # REEMPLAZAR: Contraseña para RDS (mínimo 8 caracteres)
 db_password = "YourSecurePassword123!"

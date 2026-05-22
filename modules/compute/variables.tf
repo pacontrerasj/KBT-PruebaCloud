@@ -19,8 +19,9 @@ variable "ec2_sg_id" {
 }
 
 variable "ami_id" {
-  description = "ID de la AMI personalizada"
+  description = "ID de la AMI personalizada (opcional, usará Amazon Linux 2 si está vacío)"
   type        = string
+  default     = ""
 }
 
 variable "app_version" {
