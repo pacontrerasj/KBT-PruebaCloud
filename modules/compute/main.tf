@@ -65,6 +65,14 @@ resource "aws_autoscaling_group" "web" {
     version = "$Latest"
   }
 
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = ["launch_template"]
+  }
+
   tag {
     key                 = "Name"
     value               = "${var.project_name}-instance"
