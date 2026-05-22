@@ -3,13 +3,10 @@ project_name = "technova"
 vpc_cidr     = "10.0.0.0/16"
 
 # REEMPLAZAR: ID de tu AMI personalizada
-ami_id = "ami-0xxxxxxxxxxxxxxxxx"
+ami_id = ""
 
 # REEMPLAZAR: Contraseña para RDS (mínimo 8 caracteres)
 db_password = "YourSecurePassword123!"
-
-# REEMPLAZAR: ARN del LabRole de AWS Academy
-lab_role_arn = "arn:aws:iam::123456789012:role/LabRole"
 
 # Tu correo para notificaciones SNS
 email_sns = "pa.contrerasj@duocuc.cl"

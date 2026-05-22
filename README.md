@@ -139,6 +139,20 @@ En tu repositorio de GitHub, ve a **Settings > Secrets and variables > Actions**
 | `AWS_ACCESS_KEY_ID` | Access Key de AWS Academy |
 | `AWS_SECRET_ACCESS_KEY` | Secret Key de AWS Academy |
 | `AWS_SESSION_TOKEN` | Session Token de AWS Academy |
+| `EMAIL_SNS` | Correo para notificaciones SNS (ej: `pa.contrerasj@duocuc.cl`) |
+
+> **Importante:** `terraform.tfvars` está en `.gitignore` por contener datos sensibles como `db_password`. En CI/CD, las variables de este archivo **no están disponibles**. Para que el módulo `monitoring` reciba el correo automáticamente en GitHub Actions, Terraform lee la variable `email_sns` a través de la variable de entorno `TF_VAR_email_sns`, cuyo valor se obtiene del secret `EMAIL_SNS`.
+
+### 4. Crear el Secret `EMAIL_SNS` paso a paso
+
+1. Ve a tu repositorio en GitHub: `https://github.com/tu-usuario/tu-repo`
+2. Entra a **Settings** > **Secrets and variables** > **Actions**
+3. Haz clic en **New repository secret**
+4. En **Name** escribe: `EMAIL_SNS`
+5. En **Secret** escribe tu correo: `pa.contrerasj@duocuc.cl`
+6. Haz clic en **Add secret**
+
+Con esto, cada vez que se ejecute un workflow (plan, apply o destroy), Terraform usará automáticamente tu correo para la suscripción SNS sin necesidad de modificar ningún archivo.
 
 ## Uso
 
@@ -218,6 +232,7 @@ terraform destroy
 2. **State remoto**: Usar S3 + DynamoDB para evitar conflictos
 3. **AWS Academy**: Las credenciales expiran, recuerda actualizarlas
 4. **AMI**: Debes crear tu propia AMI desde una instancia t3.small con Docker instalado
+5. **Email en CI/CD**: El `email_sns` del `terraform.tfvars` no se usa en GitHub Actions porque el archivo está en `.gitignore`. Para que funcione, agregaste el secret `EMAIL_SNS` en GitHub. Si cambias de correo, solo actualiza el secret, no necesitas tocar código.
 
 ## Limpieza
 

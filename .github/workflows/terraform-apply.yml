@@ -12,6 +12,7 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  TF_VAR_email_sns: ${{ secrets.EMAIL_SNS }}
 
 jobs:
   apply:
