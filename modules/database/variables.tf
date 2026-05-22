@@ -22,4 +22,5 @@ variable "db_password" {
   description = "Contraseña para RDS MySQL"
   type        = string
   sensitive   = true
+  default     = null
 }
