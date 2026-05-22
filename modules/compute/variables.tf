@@ -26,7 +26,7 @@ variable "ec2_sg_id" {
 variable "ami_id" {
   description = "ID de la AMI personalizada"
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "app_version" {
