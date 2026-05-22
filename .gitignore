@@ -9,10 +9,7 @@ crash.*.log
 # Terraform lock files - pueden ser versionados pero con precaución
 # .terraform.lock.hcl
 
-# Variables sensibles
-*.tfvars
-*.tfvars.json
-environments/*/terraform.tfvars
+
 
 # Credentials
 *.pem

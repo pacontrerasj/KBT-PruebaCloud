@@ -1,0 +1,15 @@
+aws_region   = "us-east-1"
+project_name = "technova"
+vpc_cidr     = "10.0.0.0/16"
+
+# REEMPLAZAR: ID de tu AMI personalizada
+ami_id = ""
+
+# REEMPLAZAR: Contraseña para RDS (mínimo 8 caracteres)
+db_password = "YourSecurePassword123!"
+
+# Tu correo para notificaciones SNS
+email_sns = "pa.contrerasj@duocuc.cl"
+
+# Versión de la aplicación
+app_version = "v1.0.0"
