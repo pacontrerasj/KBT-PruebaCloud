@@ -19,6 +19,7 @@ variable "vpc_cidr" {
 variable "ami_id" {
   description = "ID de la AMI personalizada"
   type        = string
+  default = ""
 }
 
 variable "db_password" {
